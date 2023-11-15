@@ -1,0 +1,34 @@
+name: bookify build and test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore Bookify.sln
+      
+    - name: Build and Test
+      run: |
+        dotnet build --no-restore --configuration Release Bookify.sln /p:Configuration=Release
+
+        dotnet test --no-build --configuration Release test/Bookify.Domain.UnitTests/Bookify.Domain.UnitTests.csproj
+        dotnet test --no-build --configuration Release test/Bookify.Application.UnitTests/Bookify.Application.UnitTests.csproj
+        dotnet test --no-build --configuration Release test/Bookify.ArchitectureTests/Bookify.ArchitectureTests.csproj
+
+    - name: Check Test DLLs
+      run: find . -name '*.UnitTests.dll'
+

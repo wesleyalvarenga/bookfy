@@ -44,21 +44,3 @@ Esse projeto foi construido seguindo as boas praticas da Arquitetura limpa pragm
 - Testes de arquitetura para validar nomenclaturas e dependencias entre os projetos
 
 :rocket: Documento em andamento! Em breve adicionarei comentários e explicações do funcionamento das partes do projeto como classes, tecnicas utilizadas, fluxos e etc.
-
-A princípio para rodar o projeto basta fazer o clone e rodar o docker compose, serão criados três conteiners e uma rede para comunicacao entre os conteiners.
-- Network `bookfy_default`
-- Container `Bookify.Api` Aplicação
-- Container `Bookify.Db` Postgres
-- Container `Bookify.Identity` Keycloack
-
-### Instrucoes para rodar no WSL2
-
-Clonar o repo
-```
-git clone https://github.com/wesleyalvarenga/bookfy.git
-```
-
-Entrar na pasta do projeto e rodar
-```
-docker compose up -d
-```

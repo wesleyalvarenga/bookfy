@@ -21,14 +21,15 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Bookify.sln
       
-    - name: Build and Test
-      run: |
-        dotnet build --no-restore --configuration Release Bookify.sln /p:Configuration=Release
+    - name: Build
+      run: dotnet build --no-restore --configuration Release Bookify.sln /p:Configuration=Release
+    
+    - name: DomainTest
+      run: dotnet test --no-build --configuration Release test/Bookify.Domain.UnitTests/Bookify.Domain.UnitTests.csproj
 
-        dotnet test --no-build --configuration Release test/Bookify.Domain.UnitTests/Bookify.Domain.UnitTests.csproj
-        dotnet test --no-build --configuration Release test/Bookify.Application.UnitTests/Bookify.Application.UnitTests.csproj
-        dotnet test --no-build --configuration Release test/Bookify.ArchitectureTests/Bookify.ArchitectureTests.csproj
+    - name: ApplicationTest
+      run: dotnet test --no-build --configuration Release test/Bookify.Application.UnitTests/Bookify.Application.UnitTests.csproj
 
-    - name: Check Test DLLs
-      run: find . -name '*.UnitTests.dll'
+    - name: ArchitectureTest
+      run: dotnet test --no-build --configuration Release test/Bookify.ArchitectureTests/Bookify.ArchitectureTests.csproj
 

@@ -82,7 +82,7 @@ internal sealed class ProcessOutboxMessagesJob : IJob
         IDbConnection connection,
         IDbTransaction transaction)
     {
-        var sql = $"""                
+        var sql = $"""
             SELECT id, content
             FROM outbox_messages
             WHERE processed_on_utc IS NULL
